@@ -1,6 +1,7 @@
 import os
+import time
 from sqlite3 import dbapi2 as sqlite3
-from flask import Flask, g
+from flask import Flask, g, request
 
 app = Flask(__name__)
 
@@ -12,6 +13,8 @@ app.config.update(dict(
 def init():
     init_db()
     init_tweets()
+    if not hasattr(g, 'cur_id'):
+        g.cur_id = 1
     print "Initialized the server"
 
 def init_tweets():
@@ -44,11 +47,19 @@ def close_db(error):
     if hasattr(g, 'sqlite_db'):
         g.sqlite_db.close()
 
+@app.teardown_appcontext
+def reset_id(error):
+    if hasattr(g, 'cur_id'):
+        g.cur_id = 1
+
 @app.route('/leaderboard', methods=['GET', 'POST'])
 def update_leaderboard():
-    if not hasattr(g, 'sqlite_db'):
-        abort(500)
+    get_db()
     if request.method == 'POST':
-        return "Invalid post request"
+        g.sqlite_db.execute('''insert into scores (pub_date, username, score)
+            values (?, ?, ?)''',
+            (int(time.time()), request.form['username'], request.form['score']))
+        g.sqlite_db.commit()
+        return 'done'
     if request.method == 'GET':
         return render_template('leaderboard.html', entries=query_db("select * from scores order by score desc"))
