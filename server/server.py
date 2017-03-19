@@ -42,7 +42,7 @@ def init_tweets():
         with open("static/condensed_%d.json" % i) as raw_tweets_json:
             raw_tweets = json.load(raw_tweets_json)
             for tweet in raw_tweets:
-                if not (tweet["is_retweet"] or tweet["text"][0] == "@" or "Thank you" in tweet["text"]):
+                if not (tweet["is_retweet"] or tweet["text"][0] == "@" or "Thank you" in tweet["text"] or "@realDonaldTrump" in tweet["text"]):
                     raw_tweets_text.write(
                         html_parser.unescape(tweet["text"].encode("ascii", "ignore")).replace(".@", " @") + " ")
                     filtered_tweets.append(tweet)
