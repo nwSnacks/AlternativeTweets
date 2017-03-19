@@ -24,6 +24,7 @@ $(function () {
             setScore();
         } else {
             --numberLives;
+            setLives()
             if (numberLives == 0) {
                 gameOverDialogue();
             }
@@ -45,6 +46,7 @@ $(function () {
                 setScore();
             } else {
                 --numberLives;
+                setLives()
                 if (numberLives == 0) {
                     gameOverDialogue();
                 }
@@ -72,20 +74,22 @@ $(function () {
         formData = new FormData(myForm);
         formData.set('score', points);
         points = 0;
+        setScore()
         numberLives = 3;
+        setLives();
     }
     function setScore(){
         $("#scoreValue").html(points);
     }
     function setLives(){
         if(numberLives==3){
-            $('#hitPoints').attr("src","../static/heart3.png");
+            $("#hitPoints").attr("src","../static/heart3.png");
         } else if(numberLives==2){
-            $('#hitPoints').attr("src","../static/heart2.png");
+            $("#hitPoints").attr("src","../static/heart2.png");
         } else if(numberLives==1){
-            $('#hitPoints').attr("src","../static/heart1.png");
+            $("#hitPoints").attr("src","../static/heart1.png");
         } else if(numberLives==0){
-            $('#hitPoints').attr("src","../static/heart0.png");
+            $("#hitPoints").attr("src","../static/heart0.png");
         }
     }
 });
