@@ -1,7 +1,7 @@
 import os
 import time
 from sqlite3 import dbapi2 as sqlite3
-from flask import Flask, g, request, render_template
+from flask import Flask, g, request, render_template, redirect, url_for
 import random
 import json
 import markov
@@ -39,7 +39,7 @@ def init_tweets():
     print "Initializing tweets"
     raw_tweets_text = open("raw_tweets_text.txt", "w")
     for i in range(2011, 2018):
-        with open("resources/condensed_%d.json" % i) as raw_tweets_json:
+        with open("static/condensed_%d.json" % i) as raw_tweets_json:
             raw_tweets = json.load(raw_tweets_json)
             for tweet in raw_tweets:
                 if not (tweet["is_retweet"] or tweet["text"][0] == "@"):
@@ -77,16 +77,17 @@ def leaderboard():
             values (?, ?, ?)''',
             (int(time.time()), request.form['username'], request.form['score']))
         db.commit()
-        return redirect(url_for('leaderbord'))
+        return redirect(url_for('leaderboard'))
     if request.method == 'GET':
         db = get_db()
         cur = db.execute('select username, score from scores order by score desc')
         scores = cur.fetchall()
-        limited_scores = []
+        entries = []
         for i in range (0, 9):
             if scores:
-                limited_scores = scores.pop()
-        return render_template('leaderboard.html', entries=limited_scores)
+                entries = scores.pop()
+                print entries[i]
+        return render_template('leaderboard.html', entries=entries)
 
 '''
 The returned tweet will be a JSON object in this format format
