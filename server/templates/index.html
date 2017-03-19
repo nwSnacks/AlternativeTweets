@@ -41,6 +41,10 @@
 				<button type="button" class="floated whitefont" id="text" value="false">"Alternative" Tweet</button>
 			</form>
 		</div><!-- container -->
+        <form action='{{ url_for('leaderboard') }}' method='post'>
+            <input type='text' value='Enter your name!' name='username'>
+            <input type='hidden' name='score'>
+        </form>
 	</body>
     {% endblock %}
 </html>
