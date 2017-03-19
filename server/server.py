@@ -22,15 +22,15 @@ def init():
     print "Initialized the server"
 
 def init_tweets():
+    raw_tweets_text = open("raw_tweets_text.txt", "w")
     for i in range(2009, 2018):
         with open("resources/condensed_%d.json" % i) as raw_tweets_json:
             raw_tweets = json.load(raw_tweets_json)
             for tweet in raw_tweets:
                 if not tweet["is_retweet"]:
+                    raw_tweets_text.write(tweet["text"].encode("ascii", "ignore").replace("&amp", "&"))
                     filtered_tweets.append(tweet)
-
-    print "Testing init'ing tweets"
-    print random_real_tweet()
+    raw_tweets_text.close()
 
 def connect_db():
     rv = sqlite3.connect(app.config['DATABASE'])
