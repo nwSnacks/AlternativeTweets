@@ -22,12 +22,19 @@
 					<th id="nameHeader" class="tableHeader">Name</th>
 					<th id="scoreHeader" class="tableHeader">Score</th>
 				</tr>
-                {% for score in scores %}
-                <tr>
-                    <th>{{ entry.username }}</th>
-                    <th>{{ entry.score }}</th>
-                </tr>
-                {% endfor %}
+                {% if entries %}
+                    {% for entry in entries %}
+                    <tr>
+                        <th>{{ entry.username }}</th>
+                        <th>{{ entry.score }}</th>
+                    </tr>
+                    {% endfor %}
+               {% else %}
+                    <tr>
+                        <th>No data found!</th>
+                        <th>No data!</th>
+                    </tr>
+               {% endif %}
 			</table>
 		</div>
 		<form>
