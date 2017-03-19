@@ -27,10 +27,11 @@ def init_tweets():
         with open("resources/condensed_%d.json" % i) as raw_tweets_json:
             raw_tweets = json.load(raw_tweets_json)
             for tweet in raw_tweets:
-                if not tweet["is_retweet"]:
-                    raw_tweets_text.write(tweet["text"].encode("ascii", "ignore").replace("&amp", "&"))
+                if not (tweet["is_retweet"] and tweet["text"][0] == "@"):
+                    raw_tweets_text.write(tweet["text"].encode("ascii", "ignore").replace("&amp", "&") + " ")
                     filtered_tweets.append(tweet)
     raw_tweets_text.close()
+    print random_real_tweet()
 
 def connect_db():
     rv = sqlite3.connect(app.config['DATABASE'])
@@ -76,6 +77,13 @@ def update_leaderboard():
     if request.method == 'GET':
         return render_template('leaderboard.html', entries=query_db("select * from scores order by score desc"))
 
+'''
+The returned tweet will be a JSON object in this format format
+{
+    "tweet":"some tweet text"
+    "true_or_false":"true"
+}
+'''
 @app.route('/question', methods=['GET'])
 def get_tweet():
     if random.randint(0, 1) == 1:
@@ -85,4 +93,8 @@ def get_tweet():
 
 def random_real_tweet():
     random_tweet_index = random.randint(0, len(filtered_tweets) - 1)
-    return filtered_tweets[random_tweet_index]["text"]
+    data = {}
+    data["tweet"] = filtered_tweets[random_tweet_index]["text"].encode("ascii", "ignore").replace("&amp", "&")
+    data["true_or_false"] = "true"
+    json_data = json.dumps(data)
+    return json_data
