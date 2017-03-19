@@ -91,13 +91,8 @@ def leaderboard():
         return redirect(url_for('leaderboard'))
     if request.method == 'GET':
         db = get_db()
-        cur = db.execute('select username, score from scores order by score desc')
-        scores = cur.fetchall()
-        entries = []
-        for i in range(0, 9):
-            if scores:
-                entries = scores.pop()
-                print entries[i]
+        cur = db.execute('select username, score from scores order by score desc limit 10')
+        entries = cur.fetchall()
         return render_template('leaderboard.html', entries=entries)
 
 
