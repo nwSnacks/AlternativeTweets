@@ -33,7 +33,7 @@ class Markov:
 			prev_word = self.words[start - 1]
 			start_word = self.words[start]
 			next_word = self.words[start + 1]
-			if (start_word[0].isupper() or start_word[0] == "\"") and (prev_word[-1] in end_chars):
+			if (start_word[0].isupper() or start_word[0] == "\"") and (prev_word[-1] in end_chars or prev_word[0] == "#"):
 				break
 		w1 = start_word
 		w2 = next_word
