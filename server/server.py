@@ -4,10 +4,12 @@ from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, g, request
 import random
 import json
+from HTMLParser import HTMLParser
 
 app = Flask(__name__)
 
 filtered_tweets = []
+html_parser = HTMLParser()
 
 app.config.update(dict(
     DATABASE=os.path.join(app.root_path, 'AlternativeTweetsLeaderboard.db')
@@ -32,12 +34,13 @@ def init_db():
 def init_tweets():
     print "Initializing tweets"
     raw_tweets_text = open("raw_tweets_text.txt", "w")
-    for i in range(2009, 2018):
+    for i in range(2011, 2018):
         with open("resources/condensed_%d.json" % i) as raw_tweets_json:
             raw_tweets = json.load(raw_tweets_json)
             for tweet in raw_tweets:
-                if not (tweet["is_retweet"] and tweet["text"][0] == "@"):
-                    raw_tweets_text.write(tweet["text"].encode("ascii", "ignore").replace("&amp", "&") + " ")
+                if not (tweet["is_retweet"] or tweet["text"][0] == "@"):
+                    raw_tweets_text.write(
+                        html_parser.unescape(tweet["text"].encode("ascii", "ignore")).replace(".@", " @") + " ")
                     filtered_tweets.append(tweet)
     raw_tweets_text.close()
     print random_real_tweet()
@@ -91,7 +94,8 @@ def get_tweet():
 def random_real_tweet():
     random_tweet_index = random.randint(0, len(filtered_tweets) - 1)
     data = {}
-    data["tweet"] = filtered_tweets[random_tweet_index]["text"].encode("ascii", "ignore").replace("&amp", "&")
+    data["tweet"] = html_parser.unescape(
+        filtered_tweets[random_tweet_index]["text"].encode("ascii", "ignore")).replace('\"', "")
     data["true_or_false"] = "true"
     json_data = json.dumps(data)
     return json_data
