@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>Alternative Tweets: Trump Edition</title>
+
+		<!-- Normalize.css -->
+        <link rel="stylesheet" type="text/css" href="normalize.css">
+        
+        <!-- Custom Styles -->
+        <link rel="stylesheet" type="text/css" href="styles.css">
+
+        <script src=“https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js“></script>
+
+   		<script src=“main.js”></script>
+	</head>
+	<body>
+		<div id="menubar">
+			<header class="main">
+				<nav>
+					<ul class="whitefont">
+						<li id="logo"><a class="whitefont" href="">Alternative Tweets</a></li>
+						<li><a class="whitefont" href="index.html">Game</a></li>
+						<li><a class="whitefont" href="leaderboard.html">Leaderboard</a></li>
+					</ul>
+				</nav>
+			</header>
+		</div><!-- menubar -->
+
+		<div id="container">
+			<div id="tweetContainer">
+				<button type="button" id="tweetHead"></button>
+				<p type="button" id="tweetBody">Insert tweet here</p>
+				<button type="button" id="tweetFoot"></button>
+			</div>
+
+			<form>
+				<label class="whitefont">Tweet or Text?</label>
+				<button type="button" class="floated whitefont" id="tweet" value="true">Tweet</button>
+				<button type="button" class="floated" id="tie"></button>
+				<button type="button" class="floated whitefont" id="text" value="false">Text</button>
+			</form>
+		</div><!-- container -->
+	</body>
+</html>

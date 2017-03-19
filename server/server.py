@@ -15,13 +15,22 @@ app.config.update(dict(
 
 @app.cli.command('init')
 def init():
+    print "Initializing..."
     init_db()
     init_tweets()
     if not hasattr(g, 'cur_id'):
         g.cur_id = 1
     print "Initialized the server"
 
+def init_db():
+    print "Initializing database"
+    db = get_db()
+    with app.open_resource('schema.sql', mode='r') as schema:
+        db.cursor().executescript(schema.read())
+    db.commit()
+
 def init_tweets():
+    print "Initializing tweets"
     raw_tweets_text = open("raw_tweets_text.txt", "w")
     for i in range(2009, 2018):
         with open("resources/condensed_%d.json" % i) as raw_tweets_json:
@@ -37,18 +46,6 @@ def connect_db():
     rv = sqlite3.connect(app.config['DATABASE'])
     rv.row_factory = sqlite3.Row
     return rv
-
-def init_db():
-    db = get_db()
-    with app.open_resource('schema.sql', mode='r') as schema:
-        db.cursor().executescript(schema.read())
-    db.commit()
-
-#create command line command to init db
-@app.cli.command('initdb')
-def initdb_command():
-    init_db()
-    print "Initialized the database"
 
 def get_db():
     if not hasattr(g, 'sqlite_db'):
