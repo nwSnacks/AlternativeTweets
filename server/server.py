@@ -4,11 +4,13 @@ from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, g, request, render_template
 import random
 import json
+import markov
 from HTMLParser import HTMLParser
 
 app = Flask(__name__)
 
 filtered_tweets = []
+markov_obj = {}
 html_parser = HTMLParser()
 
 app.config.update(dict(
@@ -20,6 +22,8 @@ def init():
     print "Initializing..."
     init_db()
     init_tweets()
+    init_fake_tweets()
+
     if not hasattr(g, 'cur_id'):
         g.cur_id = 1
     print "Initialized the server"
@@ -44,6 +48,9 @@ def init_tweets():
                     filtered_tweets.append(tweet)
     raw_tweets_text.close()
     print random_real_tweet()
+
+def init_fake_tweets():
+    markov_obj = markov.Markov("./raw_tweets_text.txt")
 
 def connect_db():
     rv = sqlite3.connect(app.config['DATABASE'])
@@ -91,7 +98,7 @@ def get_tweet():
     if random.randint(0, 1) == 1:
         return random_real_tweet()
     else:
-        return #TODO: return a fake tweet
+        return random_fake_tweet()
 
 def random_real_tweet():
     random_tweet_index = random.randint(0, len(filtered_tweets) - 1)
@@ -99,5 +106,12 @@ def random_real_tweet():
     data["tweet"] = html_parser.unescape(
         filtered_tweets[random_tweet_index]["text"].encode("ascii", "ignore")).replace('\"', "")
     data["true_or_false"] = "true"
+    json_data = json.dumps(data)
+    return json_data
+
+def random_fake_tweet():
+    data = {}
+    data["tweet"] = markov_obj.genTweet()
+    data["true_or_false"] = "false"
     json_data = json.dumps(data)
     return json_data
