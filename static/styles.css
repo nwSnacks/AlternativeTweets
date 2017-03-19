@@ -16,7 +16,7 @@ body {
 	width: 800px;
 	margin: 40px auto 0;
 	background-color: #FFFFFF;
-	background: url('img/trumpcont.png')top left repeat-x;
+	background: url('../resources/trumpcont.png')top left repeat-x;
 	padding: 50px 0 0;
 	box-sizing: border-box;
 	box-shadow: 0 10px 15px -8px #000;
@@ -84,7 +84,7 @@ button {
 #tie {
 	width: 100px;
 	height: 100px;
-	background: url('img/tie.png')top left no-repeat;
+	background: url('../resources/tie.png')top left no-repeat;
 }
 
 .floated {
@@ -94,13 +94,13 @@ button {
 #tweetHead {
 	width: 516px;
 	height: 80px;
-	background: url('img/tweetHead.png') center no-repeat;
+	background: url('../resources/tweetHead.png') center no-repeat;
 }
 
 #tweetFoot {
 	width: 515px;
 	height: 80px;
-	background: url('img/tweetFoot.png') center no-repeat;
+	background: url('../resources/tweetFoot.png') center no-repeat;
 }
 
 #tweetBody {
