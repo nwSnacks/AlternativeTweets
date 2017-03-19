@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<title>{% block title %}Alternative Tweets: Leaderboard{% endblock %}</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="styles.css") }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="normalize.css") }}">
+
+{% block body %}
+    <div id="menubar">
+        <header class="main">
+            <nav>
+                <ul class="whitefont">
+					<li id="logo"><a class="whitefont" href="">Alternative Tweets</a></li>
+                    <li><a class="whitefont" href="{{ url_for('static', filename="index.html") }}">Game</a></li>
+                    <li><a class="whitefont" href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+				</ul>
+			</nav>
+		</header>
+	</div>
+    <div id="container">
+		<div id="leaderboardContainer">
+			<table>
+				<tr>
+					<th id="nameHeader" class="tableHeader">Name</th>
+					<th id="scoreHeader" class="tableHeader">Score</th>
+				</tr>
+                {% for score in scores %}
+                <tr>
+                    <th>{{ entry.username }}</th>
+                    <th>{{ entry.score }}</th>
+                </tr>
+                {% endfor %}
+			</table>
+		</div>
+		<form>
+			<button type="button" class="floated whitefont" id="tweet"></button>
+			<button type="button" class="floated" id="tie"></button>
+			<button type="button" class="floated whitefont" id="text"></button>
+		</form>
+	</div>
+{% endblock %}

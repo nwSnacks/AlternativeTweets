@@ -57,22 +57,23 @@ def close_db(error):
     if hasattr(g, 'sqlite_db'):
         g.sqlite_db.close()
 
-@app.teardown_appcontext
-def reset_id(error):
-    if hasattr(g, 'cur_id'):
-        g.cur_id = 1
-
 @app.route('/leaderboard', methods=['GET', 'POST'])
-def update_leaderboard():
-    get_db()
+def leaderboard():
     if request.method == 'POST':
-        g.sqlite_db.execute('''insert into scores (pub_date, username, score)
+        db = get_db()
+        db.execute('''insert into scores (pub_date, username, score)
             values (?, ?, ?)''',
             (int(time.time()), request.form['username'], request.form['score']))
-        g.sqlite_db.commit()
-        return 'done'
+        db.commit()
+        return redirect(url_for('leaderbord'))
     if request.method == 'GET':
-        return render_template('leaderboard.html', entries=query_db("select * from scores order by score desc"))
+        db = get_db()
+        cur = db.execute('select username, score from scores order by score desc')
+        scores = cur.fetchall()
+        limited_scores = scores.pop()
+        for (int i = 0; i < 9; i++):
+            limited_scores = scores.pop()
+        return render_template('leaderboard.html', entries=limited_scores)
 
 '''
 The returned tweet will be a JSON object in this format format
