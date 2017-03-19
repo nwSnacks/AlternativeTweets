@@ -1,11 +1,11 @@
 # CREDITS TO SHABDA RAJ
 # http://agiliq.com/blog/2009/06/generating-pseudo-random-text-with-markov-chains-u/
 end_chars = ["!", ".", "?", "..."]
-end_words = ["SAD!", "Sad!", "sad!", "DISGRACE!", "AGAIN!", "AGAIN", "BAD!", "bad!"]
+end_words = ["SAD!", "Sad!", "DISGRACE!", "Disgrace!", "AGAIN!", "AGAIN", "BAD!", "Bad!"]
+zesty_words = ["SAD!", "Sad!", "Disgraceful!", "Disgrace!", "MAKE AMERICA GREAT AGAIN!", "Bad!", "#MAGA", "#USA"]
 
 
 import random
-import json
 
 class Markov:
 	def __init__(self, file):
@@ -28,7 +28,6 @@ class Markov:
 				self.cache[key] = [w3]
 
 	def genTweet(self):
-		start_word = " "
 		while True:
 			start = random.randint(1, (len(self.words) - 3))
 			prev_word = self.words[start - 1]
@@ -45,4 +44,6 @@ class Markov:
 			if (w2[-1] in end_chars and len(gen_words) > 10) or w2 in end_words:
 				break
 		gen_words.append(w2)
+		if random.randint(0, 10) == 9:
+			gen_words.append(random.choice(zesty_words))
 		return ' '.join(gen_words)
