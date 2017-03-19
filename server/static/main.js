@@ -64,7 +64,9 @@ $(function () {
     }
 
     function gameOverDialogue() {
-        // TODO:
+        var myForm = document.getElementById('submit');
+        formData = new FormData(myForm);
+        formData.set('score', points);
         points = 0;
         numberLives = 3;
     }
