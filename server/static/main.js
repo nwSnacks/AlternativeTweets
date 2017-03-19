@@ -22,9 +22,11 @@ $(function () {
         if (tweetObj["true_or_false"] == "true") {
             ++points;
             setScore();
+            setResult("RIGHT!");
         } else {
             --numberLives;
-            setLives()
+            setLives();
+            setResult("WRONG!");
             if (numberLives == 0) {
                 gameOverDialogue();
             }
@@ -44,9 +46,11 @@ $(function () {
             if (tweetObj["true_or_false"] == "false") {
                 ++points;
                 setScore();
+                setResult("RIGHT!");
             } else {
                 --numberLives;
-                setLives()
+                setLives();
+                setResult("WRONG!");
                 if (numberLives == 0) {
                     gameOverDialogue();
                 }
@@ -77,6 +81,7 @@ $(function () {
         setScore()
         numberLives = 3;
         setLives();
+        setResult("YOU'RE FIRED!!!");
     }
     function setScore(){
         $("#scoreValue").html(points);
@@ -92,4 +97,8 @@ $(function () {
             $("#hitPoints").attr("src","../static/heart0.png");
         }
     }
+    function setResult(result){
+        $("#result").html(result);
+    }
+
 });
