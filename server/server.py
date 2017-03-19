@@ -69,6 +69,10 @@ def close_db(error):
     if hasattr(g, 'sqlite_db'):
         g.sqlite_db.close()
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 @app.route('/leaderboard', methods=['GET', 'POST'])
 def leaderboard():
     if request.method == 'POST':
