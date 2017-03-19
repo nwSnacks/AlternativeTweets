@@ -4,9 +4,10 @@ from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, g, request
 import random
 import json
-import urllib2
 
 app = Flask(__name__)
+
+filtered_tweets = []
 
 app.config.update(dict(
     DATABASE=os.path.join(app.root_path, 'AlternativeTweetsLeaderboard.db')
@@ -29,8 +30,16 @@ def init_db():
     db.commit()
 
 def init_tweets():
-    print "Testing tweets"
-    print random_real_tweet()
+    print "Initializing tweets"
+    raw_tweets_text = open("raw_tweets_text.txt", "w")
+    for i in range(2009, 2018):
+        with open("resources/condensed_%d.json" % i) as raw_tweets_json:
+            raw_tweets = json.load(raw_tweets_json)
+            for tweet in raw_tweets:
+                if not tweet["is_retweet"]:
+                    raw_tweets_text.write(tweet["text"].encode("ascii", "ignore").replace("&amp", "&"))
+                    filtered_tweets.append(tweet)
+    raw_tweets_text.close()
 
 def connect_db():
     rv = sqlite3.connect(app.config['DATABASE'])
@@ -64,17 +73,13 @@ def update_leaderboard():
     if request.method == 'GET':
         return render_template('leaderboard.html', entries=query_db("select * from scores order by score desc"))
 
+@app.route('/question', methods=['GET'])
+def get_tweet():
+    if random.randint(0, 1) == 1:
+        return random_real_tweet()
+    else:
+        return #TODO: return a fake tweet
 
 def random_real_tweet():
-    random_year = random.randint(2009,2017)
-
-    # open the json file from that year
-    tweets_json = urllib2.urlopen("./resources/condensed_(%d).json" % random_year)
-    tweets = json.loads(tweets_json)
-
-    random_tweet_index = random.randint(0, len(tweets))
-
-    while tweets[random_tweet_index]["is_retweet"]:
-        random_tweet_index = (random_tweet_index + 1) % (len(tweets) - 1)
-
-    return tweets[random_tweet_index]["text"]
+    random_tweet_index = random.randint(0, len(filtered_tweets) - 1)
+    return filtered_tweets[random_tweet_index]["text"]
