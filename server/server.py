@@ -2,6 +2,9 @@ import os
 import time
 from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, g, request
+import random
+import json
+import urllib2
 
 app = Flask(__name__)
 
@@ -19,6 +22,7 @@ def init():
 
 def init_tweets():
     print "Testing init'ing tweets"
+    print random_real_tweet()
 
 def connect_db():
     rv = sqlite3.connect(app.config['DATABASE'])
@@ -63,3 +67,18 @@ def update_leaderboard():
         return 'done'
     if request.method == 'GET':
         return render_template('leaderboard.html', entries=query_db("select * from scores order by score desc"))
+
+
+def random_real_tweet():
+    random_year = random.randint(2009,2017)
+
+    # open the json file from that year
+    tweets_json = urllib2.urlopen("./resources/condensed_(%d).json" % random_year)
+    tweets = json.loads(tweets_json)
+
+    random_tweet_index = random.randint(0, len(tweets))
+
+    while tweets[random_tweet_index]["is_retweet"]:
+        random_tweet_index = (random_tweet_index + 1) % (len(tweets) - 1)
+
+    return tweets[random_tweet_index]["text"]
