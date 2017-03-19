@@ -12,24 +12,26 @@ body {
 	background-color: #0084b4;
 }
 
+/* Containers */
 #container {
 	width: 800px;
 	margin: 40px auto 0;
 	background-color: #FFFFFF;
 	background: url('../resources/trumpcont.png')top left repeat-x;
-	padding: 50px 0 0;
+	padding: 25px 0 0;
 	box-sizing: border-box;
 	box-shadow: 0 10px 15px -8px #000;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	overflow:hidden;
+	position: relative;
 }
 
 #tweetContainer {
 	text-align: center;
 	width: 700px;
-	margin: 20px auto;
+	margin: 60px auto;
 	background-color: #FFFFFF;
 	box-sizing: border-box;
 	box-shadow: 0 10px 15px -8px #000;
@@ -42,7 +44,7 @@ body {
 #leaderboardContainer {
 	width: 700px;
 	margin: 20px auto;
-	background-color: #FFFFFF;
+	background-color: #ff7f27;
 	box-sizing: border-box;
 	box-shadow: 0 10px 15px -8px #000;
 	-webkit-border-radius: 5px;
@@ -69,12 +71,17 @@ form label {
 	font-weight: bold;
 }
 
+form button:hover {
+	background-color: #36454f;
+}
+
 button {
 	background: #000;
 	border: none;
 	font-size: 18px;
 }
 
+/* Trump Body */
 #tweet, #text {
 	width: 350px;
 	height: 100px;
@@ -88,9 +95,10 @@ button {
 }
 
 .floated {
-	float:left;
+	float: left;
 }
 
+/* Tweet Container */
 #tweetHead {
 	width: 516px;
 	height: 80px;
@@ -112,6 +120,8 @@ button {
 	color: #fff;
 }
 
+
+/* Leaderboard Table */
 .tableHeader {
 	padding: 0;
 	font-style: bold;
@@ -119,12 +129,16 @@ button {
 	text-transform: uppercase;
 }
 
-#nameHeader {
-	width: 85%;
+tr {
+	text-align: left;
 }
 
-#scoreHeqader {
-	width: 15%;
+#nameHeader {
+	width: 80%;
+}
+
+#scoreHeader {
+	width:20%
 }
 
 /* Header */
@@ -152,4 +166,13 @@ header nav ul li a {
 
 header nav ul li a:hover {
    background-color: #1dcaff;
+}
+
+.lives {
+	background-color: #FF1493;
+	background: url('../resources/heart.png') top left no-repeat;
+	width: 30px;
+	height: 30px;
+	margin-top: -30px;
+	margin-left: 10px;
 }
