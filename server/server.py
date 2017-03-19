@@ -50,7 +50,9 @@ def init_tweets():
     print random_real_tweet()
 
 def init_fake_tweets():
+    global markov_obj
     markov_obj = markov.Markov("./raw_tweets_text.txt")
+    print random_fake_tweet()
 
 def connect_db():
     rv = sqlite3.connect(app.config['DATABASE'])
