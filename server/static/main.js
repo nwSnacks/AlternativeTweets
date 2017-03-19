@@ -3,6 +3,14 @@ $(function () {
     var points = 0
     var numberLives = 3
 
+    window.onload = function () {
+        $('#tweet').prop("disabled", true);
+        $('#text').prop("disabled", true);
+        updateTweet();
+        $('#tweet').prop("disabled", false);
+        $('#text').prop("disabled", false);
+    };
+
     // when the tweet button is clicked, check if the current tweet is a real tweet.
     // if true, increment points. if not, decrement lives, go to game over screen if at 0 lives.
     // replace tweet
@@ -20,26 +28,27 @@ $(function () {
         updateTweet()
         $('#tweet').prop("disabled", false);
         $('#text').prop("disabled", false);
-    }
+    })
 
     // when the text button is clicked, check if the current tweet is a fake tweet.
     // if true, increment points. if not, decrement lives, go to game over screen if at 0 lives.
     // replace tweet
     $('#text').click(function () {
-        $('#tweet').prop("disabled", true);
-        $('#text').prop("disabled", true);
-        if (tweetObj["true_or_false"] == "false") {
-            ++points
-        } else {
-            --numberLives
-            if (numberLives == 0) {
-                gameOverDialogue();
+            $('#tweet').prop("disabled", true);
+            $('#text').prop("disabled", true);
+            if (tweetObj["true_or_false"] == "false") {
+                ++points
+            } else {
+                --numberLives
+                if (numberLives == 0) {
+                    gameOverDialogue();
+                }
             }
+            updateTweet()
+            $('#tweet').prop("disabled", false);
+            $('#text').prop("disabled", false);
         }
-        updateTweet()
-        $('#tweet').prop("disabled", false);
-        $('#text').prop("disabled", false);
-    }
+    )
 
 
     function updateTweet() {
