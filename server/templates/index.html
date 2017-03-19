@@ -1,12 +1,5 @@
 <!DOCTYPE html>
 <html>
-<<<<<<< HEAD:server/static/index.html
-<head>
-    <title>Alternative Tweets: Trump Edition</title>
-
-    <!-- Normalize.css -->
-    <link rel="stylesheet" type="text/css" href="normalize.css">
-=======
 	<head>
         {% block title %}<title>Alternative Tweets: Trump Edition</title>{% endblock %}
 
@@ -15,28 +8,6 @@
         
         <!-- Custom Styles -->
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
->>>>>>> a5d27ec43a661b7d855954922b9872d69374b2c8:server/templates/index.html
-
-    <!-- Custom Styles -->
-    <link rel="stylesheet" type="text/css" href="styles.css">
-
-<<<<<<< HEAD:server/static/index.html
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="main.js"></script>
-</head>
-<body>
-<div id="menubar">
-    <header class="main">
-        <nav>
-            <ul class="whitefont">
-                <li id="logo"><a class="whitefont" href="">Alternative Tweets</a></li>
-                <li><a class="whitefont" href="index.html">Game</a></li>
-                <li><a class="whitefont" href="../templates/leaderboard.html">Leaderboard</a></li>
-            </ul>
-        </nav>
-    </header>
-</div><!-- menubar -->
-=======
         <script src="{{ url_for('static', filename='main.js') }}"></script>
 	</head>
     {% block body %}
@@ -52,28 +23,16 @@
 				</nav>
 			</header>
 		</div><!-- menubar -->
->>>>>>> a5d27ec43a661b7d855954922b9872d69374b2c8:server/templates/index.html
 
-<div id="container">
-    <!-- Number of current lives, delete a line of html if wrong answer -->
-    <button type="button" class="lives"></button>
+        <div id="container">
+            <!-- Number of current lives, delete a line of html if wrong answer -->
+            <button type="button" class="lives"></button>
 
-    <div id="tweetContainer">
-        <button type="button" id="tweetHead"></button>
-        <p type="button" id="tweetBody">Insert tweet here</p>
-        <button type="button" id="tweetFoot"></button>
-    </div>
-
-<<<<<<< HEAD:server/static/index.html
-    <form>
-        <button type="button" class="floated whitefont" id="tweet" value="true">Real Tweet</button>
-        <button type="button" class="floated" id="tie"></button>
-        <button type="button" class="floated whitefont" id="text" value="false">"Alternative" Tweet</button>
-    </form>
-</div><!-- container -->
-</body>
-</html>
-=======
+            <div id="tweetContainer">
+                <button type="button" id="tweetHead"></button>
+                <p type="button" id="tweetBody">Insert tweet here</p>
+                <button type="button" id="tweetFoot"></button>
+        </div>
 			<form>
 				<button type="button" class="floated whitefont" id="tweet" value="true">Real Tweet</button>
 				<button type="button" class="floated" id="tie"></button>
@@ -83,4 +42,3 @@
 	</body>
     {% endblock %}
 </html>
->>>>>>> a5d27ec43a661b7d855954922b9872d69374b2c8:server/templates/index.html
