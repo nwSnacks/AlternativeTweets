@@ -1,7 +1,7 @@
 import os
 import time
 from sqlite3 import dbapi2 as sqlite3
-from flask import Flask, g, request
+from flask import Flask, g, request, render_template
 import random
 import json
 from HTMLParser import HTMLParser
@@ -73,9 +73,10 @@ def leaderboard():
         db = get_db()
         cur = db.execute('select username, score from scores order by score desc')
         scores = cur.fetchall()
-        limited_scores = scores.pop()
-        for (int i = 0; i < 9; i++):
-            limited_scores = scores.pop()
+        limited_scores = []
+        for i in range (0, 9):
+            if scores:
+                limited_scores = scores.pop()
         return render_template('leaderboard.html', entries=limited_scores)
 
 '''
