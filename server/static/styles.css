@@ -18,7 +18,7 @@ body {
 	margin: 40px auto 0;
 	background-color: #FFFFFF;
 	background: url('../static/trumpcont.png')top left repeat-x;
-	padding: 50px 0 0;
+	padding: 25px 0 0;
 	box-sizing: border-box;
 	box-shadow: 0 10px 15px -8px #000;
 	-webkit-border-radius: 5px;
@@ -170,8 +170,8 @@ header nav ul li a:hover {
 
 .lives {
 	background-color: #FF1493;
-	background: url('../resources/heart3.png') top left no-repeat;
-	width: 30px;
+	background: url('heart3.png') top left no-repeat;
+	width: 130px;
 	height: 30px;
 	margin-top: -30px;
 	margin-left: 10px;
