@@ -38,7 +38,7 @@ $(function () {
     // if true, increment points. if not, decrement lives, go to game over screen if at 0 lives.
     // replace tweet
     $("#text").click(function () {
-        console.log("text button clicked");
+            console.log("text button clicked");
             $("#tweet").prop("disabled", true);
             $("#text").prop("disabled", true);
             if (tweetObj["true_or_false"] == "false") {
@@ -77,19 +77,23 @@ $(function () {
         setScore()
         numberLives = 3;
         setLives();
+        $("#tweet").prop("disabled", false);
+        $("#text").prop("disabled", false);
     }
-    function setScore(){
+
+    function setScore() {
         $("#scoreValue").html(points);
     }
-    function setLives(){
-        if(numberLives==3){
-            $("#hitPoints").attr("src","../static/heart3.png");
-        } else if(numberLives==2){
-            $("#hitPoints").attr("src","../static/heart2.png");
-        } else if(numberLives==1){
-            $("#hitPoints").attr("src","../static/heart1.png");
-        } else if(numberLives==0){
-            $("#hitPoints").attr("src","../static/heart0.png");
+
+    function setLives() {
+        if (numberLives == 3) {
+            $("#hitPoints").attr("src", "../static/heart3.png");
+        } else if (numberLives == 2) {
+            $("#hitPoints").attr("src", "../static/heart2.png");
+        } else if (numberLives == 1) {
+            $("#hitPoints").attr("src", "../static/heart1.png");
+        } else if (numberLives == 0) {
+            $("#hitPoints").attr("src", "../static/heart0.png");
         }
     }
 });
