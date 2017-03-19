@@ -10,6 +10,7 @@ $(function () {
         $("#tweet").prop("disabled", false);
         $("#text").prop("disabled", false);
         setScore();
+        setLives();
     };
 
     // when the tweet button is clicked, check if the current tweet is a real tweet.
@@ -41,6 +42,7 @@ $(function () {
             $("#text").prop("disabled", true);
             if (tweetObj["true_or_false"] == "false") {
                 ++points;
+                setScore();
             } else {
                 --numberLives;
                 if (numberLives == 0) {
@@ -78,14 +80,11 @@ $(function () {
     function setLives(){
         if(numberLives==3){
             $('#hitPoints').attr("src","../static/heart3.png");
-        }
-        else if(numberLives==2){
+        } else if(numberLives==2){
             $('#hitPoints').attr("src","../static/heart2.png");
-        }
-        else if(numberLives==1){
+        } else if(numberLives==1){
             $('#hitPoints').attr("src","../static/heart1.png");
-        }
-        else if(numberLives==0){
+        } else if(numberLives==0){
             $('#hitPoints').attr("src","../static/heart0.png");
         }
     }
