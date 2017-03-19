@@ -1,11 +1,7 @@
 $(function () {
-
-    val
-    tweetObj = {}
-    val
-    points = 0
-    val
-    numberLives = 3
+    var tweetObj = {}
+    var points = 0
+    var numberLives = 3
 
     // when the tweet button is clicked, check if the current tweet is a real tweet.
     // if true, increment points. if not, decrement lives, go to game over screen if at 0 lives.
@@ -48,7 +44,7 @@ $(function () {
 
     function updateTweet() {
         var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("GET", "/question", false); // false for synchronous request
+        xmlHttp.open("GET", "http://localhost/question", false); // false for synchronous request
         xmlHttp.send();
         tweetObj = xmlHttp.responseText;
     }
