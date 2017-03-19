@@ -1,0 +1,155 @@
+/* styles.css */
+
+body {
+	background-size: cover;
+	background-color: #c0deed;
+	font-family: helvetica;
+}
+
+#menubar {
+	width: 100%;
+	height: 40px;
+	background-color: #0084b4;
+}
+
+#container {
+	width: 800px;
+	margin: 40px auto 0;
+	background-color: #FFFFFF;
+	background: url('img/trumpcont.png')top left repeat-x;
+	padding: 50px 0 0;
+	box-sizing: border-box;
+	box-shadow: 0 10px 15px -8px #000;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	overflow:hidden;
+}
+
+#tweetContainer {
+	text-align: center;
+	width: 700px;
+	margin: 20px auto;
+	background-color: #FFFFFF;
+	box-sizing: border-box;
+	box-shadow: 0 10px 15px -8px #000;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	overflow:hidden;
+}
+
+#leaderboardContainer {
+	width: 700px;
+	margin: 20px auto;
+	background-color: #FFFFFF;
+	box-sizing: border-box;
+	box-shadow: 0 10px 15px -8px #000;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	overflow:hidden;
+}
+
+h1 {
+	margin: 0 0 20px;
+	padding: 0 0 20px;
+}
+
+h2 {
+	text-align: center;
+	margin: 0 0 20px;
+	padding: 0 0 20px;
+}
+
+form label {
+	text-align: center;
+	display: block;
+	margin: 15px 0 5px;
+	font-weight: bold;
+}
+
+button {
+	background: #000;
+	border: none;
+	font-size: 18px;
+}
+
+#tweet, #text {
+	width: 350px;
+	height: 100px;
+	text-transform: uppercase;
+}
+
+#tie {
+	width: 100px;
+	height: 100px;
+	background: url('img/tie.png')top left no-repeat;
+}
+
+.floated {
+	float:left;
+}
+
+#tweetHead {
+	width: 516px;
+	height: 80px;
+	background: url('img/tweetHead.png') center no-repeat;
+}
+
+#tweetFoot {
+	width: 515px;
+	height: 80px;
+	background: url('img/tweetFoot.png') center no-repeat;
+}
+
+#tweetBody {
+	margin: 0 0 0 110px;
+	text-align: left;
+}
+
+.whitefont {
+	color: #fff;
+}
+
+.tableHeader {
+	padding: 0;
+	font-style: bold;
+	font-size: 34px;
+	text-transform: uppercase;
+}
+
+#nameHeader {
+	width: 85%;
+}
+
+#scoreHeqader {
+	width: 15%;
+}
+
+/* Header */
+header nav ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: block;
+	line-height: 29px;
+	height: 40px;
+}
+
+header nav ul li {
+   display: inline-block;
+   padding: 0 20px;
+   font-size: 34px;
+}
+
+header nav ul li a {
+	font-size: 18px;
+	padding: 10px 0;
+	text-transform: uppercase;
+   text-decoration: none;
+}
+
+header nav ul li a:hover {
+   background-color: #1dcaff;
+}
