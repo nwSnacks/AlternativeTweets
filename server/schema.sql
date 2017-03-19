@@ -1,7 +1,6 @@
 drop table if exists scores;
 create table scores (
-    id integer primary key autoincrement,
+    pub_date date primary key,
     username text not null,
-    score integer not null,
-    pub_date date not null
+    score integer not null
 );
