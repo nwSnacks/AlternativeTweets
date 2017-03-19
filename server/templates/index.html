@@ -4,14 +4,14 @@
         {% block title %}<title>Alternative Tweets: Trump Edition</title>{% endblock %}
 
 		<!-- Normalize.css -->
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename=normalize.css) }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='normalize.css') }}">
         
         <!-- Custom Styles -->
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename=styles.css) }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 
         <script src=“https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js“></script>
 
-        <script src="{{ url_for('static', filename=main.js) }}"></script>
+        <script src="{{ url_for('static', filename='main.js') }}"></script>
 	</head>
     {% block body %}
 	<body>
@@ -20,8 +20,8 @@
 				<nav>
 					<ul class="whitefont">
 						<li id="logo"><a class="whitefont" href="">Alternative Tweets</a></li>
-                        <li><a class="whitefont" href="{{ url_for(index) }}">Game</a></li>
-                        <li><a class="whitefont" href="{{ url_for(leaderboard) }}">Leaderboard</a></li>
+                        <li><a class="whitefont" href="{{ url_for('index') }}">Game</a></li>
+                        <li><a class="whitefont" href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
 					</ul>
 				</nav>
 			</header>
