@@ -168,8 +168,7 @@ header nav ul li a:hover {
 }
 
 .lives {
-	background-color: #FF1493;
-	background: url('heart3.png') top left no-repeat;
+	background-color: #ffff00;
 	width: 130px;
 	height: 30px;
 	margin-top: -30px;
@@ -177,8 +176,13 @@ header nav ul li a:hover {
 	display: inline-block;
 }
 
+#result {
+	display: inline-block;
+	margin-left: 200px;
+}
+
 #score {
-	margin-left: 570px;
+	margin-left: 200px;
 }
 
 #score, #scoreValue {

@@ -9,6 +9,8 @@ $(function () {
         updateTweet();
         $("#tweet").prop("disabled", false);
         $("#text").prop("disabled", false);
+        setScore();
+        setLives();
     };
 
     // when the tweet button is clicked, check if the current tweet is a real tweet.
@@ -18,9 +20,13 @@ $(function () {
         $("#tweet").prop("disabled", true);
         $("#text").prop("disabled", true);
         if (tweetObj["true_or_false"] == "true") {
-            ++points
+            ++points;
+            setScore();
+            setResult("RIGHT!");
         } else {
-            --numberLives
+            --numberLives;
+            setLives();
+            setResult("WRONG!");
             if (numberLives == 0) {
                 gameOverDialogue();
             }
@@ -38,9 +44,13 @@ $(function () {
             $("#tweet").prop("disabled", true);
             $("#text").prop("disabled", true);
             if (tweetObj["true_or_false"] == "false") {
-                ++points
+                ++points;
+                setScore();
+                setResult("RIGHT!");
             } else {
-                --numberLives
+                --numberLives;
+                setLives();
+                setResult("WRONG!");
                 if (numberLives == 0) {
                     gameOverDialogue();
                 }
@@ -68,6 +78,27 @@ $(function () {
         formData = new FormData(myForm);
         formData.set('score', points);
         points = 0;
+        setScore()
         numberLives = 3;
+        setLives();
+        setResult("YOU'RE FIRED!!!");
     }
+    function setScore(){
+        $("#scoreValue").html(points);
+    }
+    function setLives(){
+        if(numberLives==3){
+            $("#hitPoints").attr("src","../static/heart3.png");
+        } else if(numberLives==2){
+            $("#hitPoints").attr("src","../static/heart2.png");
+        } else if(numberLives==1){
+            $("#hitPoints").attr("src","../static/heart1.png");
+        } else if(numberLives==0){
+            $("#hitPoints").attr("src","../static/heart0.png");
+        }
+    }
+    function setResult(result){
+        $("#result").html(result);
+    }
+
 });
