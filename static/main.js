@@ -73,18 +73,12 @@ $(function () {
         $("#tweetBody").html(tweetObj["tweet"]);
     }
 
-    function gameOverDialogue() {
-        var myForm = document.getElementById('submit');
-        formData = new FormData(myForm);
-        formData.set('score', points);
-        points = 0;
-        setScore()
-        numberLives = 3;
-        setLives();
+    function gameOverDialogue() { 
         setResult("YOU'RE FIRED!!!");
     }
     function setScore(){
         $("#scoreValue").html(points);
+        document.getElementById('submitScore').value = points;
     }
     function setLives(){
         if(numberLives==3){

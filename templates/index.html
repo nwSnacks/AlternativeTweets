@@ -48,7 +48,7 @@
 		</div><!-- container -->
         <form id='submit' action='{{ url_for('leaderboard') }}' method='post'>
             <input type='text' value='Enter your name!' name='username'>
-            <input type='hidden' name='score'>
+            <input id='submitScore' type='hidden' name='score'>
             <input type="submit" value="Submit score">
         </form>
 	</body>
