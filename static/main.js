@@ -22,9 +22,11 @@ $(function () {
         if (tweetObj["true_or_false"] == "true") {
             ++points;
             setScore();
+            setResult("RIGHT!");
         } else {
             --numberLives;
-            setLives()
+            setLives();
+            setResult("WRONG!");
             if (numberLives == 0) {
                 gameOverDialogue();
             }
@@ -44,9 +46,11 @@ $(function () {
             if (tweetObj["true_or_false"] == "false") {
                 ++points;
                 setScore();
+                setResult("RIGHT!");
             } else {
                 --numberLives;
-                setLives()
+                setLives();
+                setResult("WRONG!");
                 if (numberLives == 0) {
                     gameOverDialogue();
                 }
@@ -69,20 +73,13 @@ $(function () {
         $("#tweetBody").html(tweetObj["tweet"]);
     }
 
-    function gameOverDialogue() {
-        var myForm = document.getElementById('submit');
-        formData = new FormData(myForm);
-        formData.set('score', points);
-        points = 0;
-        setScore()
-        numberLives = 3;
-        setLives();
-        $("#tweet").prop("disabled", false);
-        $("#text").prop("disabled", false);
+    function gameOverDialogue() { 
+        setResult("YOU'RE FIRED!!!");
     }
 
     function setScore() {
         $("#scoreValue").html(points);
+        document.getElementById('submitScore').value = points;
     }
 
     function setLives() {
@@ -96,4 +93,8 @@ $(function () {
             $("#hitPoints").attr("src", "../static/heart0.png");
         }
     }
+    function setResult(result){
+        $("#result").html(result);
+    }
+
 });

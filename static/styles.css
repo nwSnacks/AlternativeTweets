@@ -176,8 +176,13 @@ header nav ul li a:hover {
 	display: inline-block;
 }
 
+#result {
+	display: inline-block;
+	margin-left: 200px;
+}
+
 #score {
-	margin-left: 570px;
+	margin-left: 200px;
 }
 
 #score, #scoreValue {

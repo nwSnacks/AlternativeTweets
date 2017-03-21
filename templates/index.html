@@ -29,6 +29,8 @@
         <div id="container">
             <!-- Number of current lives, delete a line of html if wrong answer -->
             <img id="hitPoints" src="" class="lives"/>
+
+            <h3 id="result"></h3>
             <!-- The player's current score, change id of scoreValue -->
             <h3 id="score">Score: </h3>
             <h3 id="scoreValue"></h3>
@@ -46,7 +48,7 @@
 		</div><!-- container -->
         <form id='submit' action='{{ url_for('leaderboard') }}' method='post'>
             <input type='text' value='Enter your name!' name='username'>
-            <input type='hidden' name='score'>
+            <input id='submitScore' type='hidden' name='score'>
             <input type="submit" value="Submit score">
         </form>
 	</body>
