@@ -1,7 +1,9 @@
 $(function () {
-    var tweetObj = {}
-    var points = 0
-    var numberLives = 3
+    var tweetObj;
+    var points;
+    var numberLives;
+
+    setUpGame()
 
     window.onload = function () {
         $("#tweet").prop("disabled", true);
@@ -75,11 +77,43 @@ $(function () {
 
     function gameOverDialogue() { 
         setResult("YOU'RE FIRED!!!");
+
+        $("#submitScore")[0].style.display = "block";
+
+        // When the user clicks on (x), close the modal
+        $(".close").click(function() {
+            $("#submitScore")[0].style.display = "none";
+            setUpGame();
+        });
+
+        $("#modalText").text("Your final score is " + points);
+
+        $("#submitButton").click(function() {
+            sendScoreToLeaderboard($("#name_input").text());
+            $("#submitScore")[0].style.display = "none";
+            setUpGame();
+
+        });
+
+        // When the user clicks anywhere outside of the modal, close it
+        $(window).click(function(event) {
+            if (event.target == $("#submitScore")[0]) {
+                $("#submitScore")[0].style.display = "none";
+                setUpGame();
+            }
+        });
+    }
+
+    // when game starts, should be at 0 points and 3 lives left
+    function setUpGame() {
+        tweetObj = {}
+        points = 0
+        numberLives = 3
     }
 
     function setScore() {
         $("#scoreValue").html(points);
-        document.getElementById('submitScore').value = points;
+        $("#submitScore").value = points;
     }
 
     function setLives() {
@@ -93,8 +127,18 @@ $(function () {
             $("#hitPoints").attr("src", "../static/heart0.png");
         }
     }
-    function setResult(result){
+    function setResult(result) {
         $("#result").html(result);
     }
 
+    function sendScoreToLeaderboard(name) {
+
+        var xmlHttp = new XMLHttpRequest();
+
+        var secondsSinceEpoch = Date.now() / 1000
+
+        var params = "pub_date=" + secondsSinceEpoch + "&username=" + name + "&score=" + points;
+        xmlHttp.open("POST", "http://alternativetweets.us/leaderboard", false); // false for synchronous request
+        xmlHttp.send(params);
+    }
 });
