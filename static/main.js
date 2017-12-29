@@ -66,7 +66,7 @@ $(function () {
 
     function updateTweet() {
         var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("GET", "http://alternativetweets.us/question", false); // false for synchronous request
+        xmlHttp.open("GET", "http://127.0.0.1:5000/question", false); // false for synchronous request
         xmlHttp.send();
         console.log("sent request")
         tweetObj = JSON.parse(xmlHttp.responseText);
@@ -89,7 +89,7 @@ $(function () {
         $("#modalText").text("Your final score is " + points);
 
         $("#submitButton").click(function() {
-            sendScoreToLeaderboard($("#name_input").text());
+            sendScoreToLeaderboard($("#name_input")[0].value);
             $("#submitScore")[0].style.display = "none";
             setUpGame();
 
@@ -108,7 +108,9 @@ $(function () {
     function setUpGame() {
         tweetObj = {}
         points = 0
+        setScore()
         numberLives = 3
+        setLives()
     }
 
     function setScore() {
@@ -138,7 +140,7 @@ $(function () {
         var secondsSinceEpoch = Date.now() / 1000
 
         var params = "pub_date=" + secondsSinceEpoch + "&username=" + name + "&score=" + points;
-        xmlHttp.open("POST", "http://alternativetweets.us/leaderboard", false); // false for synchronous request
+        xmlHttp.open("POST", "http://127.0.0.1:5000/leaderboard", false); // false for synchronous request
         xmlHttp.send(params);
     }
 });
