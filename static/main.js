@@ -66,7 +66,7 @@ $(function () {
 
     function updateTweet() {
         var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("GET", "http://127.0.0.1:5000/question", false); // false for synchronous request
+        xmlHttp.open("GET", "http://alternativetweets.us/question", false); // false for synchronous request
         xmlHttp.send();
         console.log("sent request")
         tweetObj = JSON.parse(xmlHttp.responseText);

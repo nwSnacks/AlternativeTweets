@@ -11,8 +11,8 @@ app = Flask(__name__)
 
 #declare global objects
 filtered_tweets = []
-markov_obj = markov.Markov("./raw_tweets_text.txt")
 cwd = os.path.dirname(os.path.realpath(__file__))
+markov_obj = markov.Markov(cwd + "/raw_tweets_text.txt")
 
 #set path to database
 app.config.update(dict(
@@ -31,10 +31,11 @@ def init():
 #initialize the database
 def init_db():
     print("Initializing database")
-    db = get_db()
+    db = connect_db()
     with app.open_resource('schema.sql', mode='r') as schema:
         db.cursor().executescript(schema.read())
     db.commit()
+    db.close()
 
 #get the database connection for this context
 def get_db():
@@ -72,7 +73,7 @@ def init_tweets():
 #initialize Markov chain generator
 def init_fake_tweets():
     global markov_obj
-    markov_obj = markov.Markov("./raw_tweets_text.txt")
+    markov_obj = markov.Markov(server_dir + "raw_tweets_text.txt")
 
 @app.route('/')
 def index():
@@ -110,7 +111,7 @@ def get_tweet():
 def random_real_tweet():
     raw_tweets_text = open(cwd + "/raw_tweets_text.txt", "w")
     for i in range(2011, 2018):
-        with open(cwd+ "/static/condensed_%d.json" % i) as raw_tweets_json:
+        with open(cwd + "/static/condensed_%d.json" % i) as raw_tweets_json:
             raw_tweets = json.load(raw_tweets_json)
             for tweet in raw_tweets:
                 if not (tweet["is_retweet"] or tweet["text"][0] == "@" or "Thank you" in tweet["text"] or "@realDonaldTrump" in tweet["text"]):
@@ -137,3 +138,5 @@ def random_fake_tweet():
     data["true_or_false"] = "false"
     json_data = json.dumps(data)
     return json_data
+
+init()
