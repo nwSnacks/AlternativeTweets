@@ -85,7 +85,7 @@ def leaderboard():
         db = get_db()
         db.execute('''insert into scores (pub_date, username, score)
             values (?, ?, ?)''',
-                   (int(time.time()), request.form['username'], request.form['score']))
+                   (int(time.time()), request.args.get("username"), request.args.get("score")))
         db.commit()
         return redirect(url_for('leaderboard'))
     if request.method == 'GET':
