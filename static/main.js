@@ -137,10 +137,10 @@ $(function () {
 
         var xmlHttp = new XMLHttpRequest();
 
-        var secondsSinceEpoch = Date.now() / 1000
+        var secondsSinceEpoch = (Date.now() / 1000).toFixed(0)
 
         var params = "pub_date=" + secondsSinceEpoch + "&username=" + name + "&score=" + points;
-        xmlHttp.open("POST", "http://127.0.0.1:5000/leaderboard", false); // false for synchronous request
-        xmlHttp.send(params);
+        xmlHttp.open("POST", "http://127.0.0.1:5000/leaderboard?" + params, false); // false for synchronous request
+        xmlHttp.send();
     }
 });
