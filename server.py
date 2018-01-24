@@ -73,7 +73,7 @@ def init_tweets():
 #initialize Markov chain generator
 def init_fake_tweets():
     global markov_obj
-    markov_obj = markov.Markov(server_dir + "raw_tweets_text.txt")
+    markov_obj = markov.Markov(cwd + "/raw_tweets_text.txt")
 
 @app.route('/')
 def index():
