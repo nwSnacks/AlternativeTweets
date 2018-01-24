@@ -5,14 +5,14 @@ from flask import Flask, g, request, render_template, redirect, url_for
 import random
 import json
 import markov
-from HTMLParser import HTMLParser
+import html
 
 app = Flask(__name__)
 
 #declare global objects
 filtered_tweets = []
 markov_obj = markov.Markov("./raw_tweets_text.txt")
-html_parser = HTMLParser()
+cwd = os.path.dirname(os.path.realpath(__file__))
 
 #set path to database
 app.config.update(dict(
@@ -20,17 +20,17 @@ app.config.update(dict(
 ))
 
 #initialize the server
-@app.cli.command('init')
+#@app.cli.command('init')
 def init():
-    print "Initializing..."
+    print("Initializing...")
     init_db()
-    init_tweets()
+    #init_tweets()
     init_fake_tweets()
-    print "Initialized the server"
+    print("Initialized the server")
 
 #initialize the database
 def init_db():
-    print "Initializing database"
+    print("Initializing database")
     db = get_db()
     with app.open_resource('schema.sql', mode='r') as schema:
         db.cursor().executescript(schema.read())
@@ -55,16 +55,17 @@ def close_db(error):
         g.sqlite_db.close()
 
 #initialize Trump tweet corpus in cache
+#TODO make this work again
 def init_tweets():
-    print "Initializing tweets"
+    print("Initializing tweets")
     raw_tweets_text = open("raw_tweets_text.txt", "w")
     for i in range(2011, 2018):
-        with open("static/condensed_%d.json" % i) as raw_tweets_json:
+        with open(cwd + "/static/condensed_%d.json" % i) as raw_tweets_json:
             raw_tweets = json.load(raw_tweets_json)
             for tweet in raw_tweets:
                 if not (tweet["is_retweet"] or tweet["text"][0] == "@" or "Thank you" in tweet["text"] or "@realDonaldTrump" in tweet["text"]):
                     raw_tweets_text.write(
-                        html_parser.unescape(tweet["text"].encode("ascii", "ignore")).replace(".@", " @") + " ")
+                        html.unescape(tweet["text"].encode("ascii", "ignore")).replace(".@", " @") + " ")
                     filtered_tweets.append(tweet)
     raw_tweets_text.close()
 
@@ -107,21 +108,19 @@ def get_tweet():
 #   "true_or_false: "true
 #}
 def random_real_tweet():
-    raw_tweets_text = open("raw_tweets_text.txt", "w")
+    raw_tweets_text = open(cwd + "/raw_tweets_text.txt", "w")
     for i in range(2011, 2018):
-        with open("static/condensed_%d.json" % i) as raw_tweets_json:
+        with open(cwd+ "/static/condensed_%d.json" % i) as raw_tweets_json:
             raw_tweets = json.load(raw_tweets_json)
             for tweet in raw_tweets:
                 if not (tweet["is_retweet"] or tweet["text"][0] == "@" or "Thank you" in tweet["text"] or "@realDonaldTrump" in tweet["text"]):
-                    raw_tweets_text.write(
-                        html_parser.unescape(tweet["text"].encode("ascii", "ignore")).replace(".@", " @") + " ")
+                    #raw_tweets_text.write(html.unescape(tweet["text"].encode("ascii", "ignore")).replace(".@", " @") + " ")
                     filtered_tweets.append(tweet)
     raw_tweets_text.close()
 
     random_tweet_index = random.randint(0, len(filtered_tweets) - 1)
     data = {}
-    data["tweet"] = html_parser.unescape(
-        filtered_tweets[random_tweet_index]["text"].encode("ascii", "ignore")).replace('\"', "")
+    data["tweet"] = html.unescape(filtered_tweets[random_tweet_index]["text"].encode("ascii", "ignore")).replace('\"', "")
     data["true_or_false"] = "true"
     json_data = json.dumps(data)
     return json_data
