@@ -1,9 +1,9 @@
 $(function () {
-    var tweetObj;
-    var points;
-    var numberLives;
+    let tweetObj;
+    let points;
+    let numberLives;
 
-    setUpGame()
+    setUpGame();
 
     window.onload = function () {
         $("#tweet").prop("disabled", true);
@@ -21,7 +21,7 @@ $(function () {
     $("#tweet").click(function () {
         $("#tweet").prop("disabled", true);
         $("#text").prop("disabled", true);
-        if (tweetObj["true_or_false"] == "true") {
+        if (tweetObj["true_or_false"] === "true") {
             ++points;
             setScore();
             setResult("RIGHT!");
@@ -29,14 +29,14 @@ $(function () {
             --numberLives;
             setLives();
             setResult("WRONG!");
-            if (numberLives == 0) {
+            if (numberLives === 0) {
                 gameOverDialogue();
             }
         }
         updateTweet()
         $("#tweet").prop("disabled", false);
         $("#text").prop("disabled", false);
-    })
+    });
 
     // when the text button is clicked, check if the current tweet is a fake tweet.
     // if true, increment points. if not, decrement lives, go to game over screen if at 0 lives.
@@ -45,7 +45,7 @@ $(function () {
             console.log("text button clicked");
             $("#tweet").prop("disabled", true);
             $("#text").prop("disabled", true);
-            if (tweetObj["true_or_false"] == "false") {
+            if (tweetObj["true_or_false"] === "false") {
                 ++points;
                 setScore();
                 setResult("RIGHT!");
@@ -53,25 +53,25 @@ $(function () {
                 --numberLives;
                 setLives();
                 setResult("WRONG!");
-                if (numberLives == 0) {
+                if (numberLives === 0) {
                     gameOverDialogue();
                 }
             }
-            updateTweet()
+            updateTweet();
             $("#tweet").prop("disabled", false);
             $("#text").prop("disabled", false);
         }
-    )
+    );
 
 
     function updateTweet() {
-        var xmlHttp = new XMLHttpRequest();
+        constxmlHttp = new XMLHttpRequest();
         xmlHttp.open("GET", "https://alternativetweets.us/question", false); // false for synchronous request
         xmlHttp.send();
-        console.log("sent request")
+        console.log("sent request");
         tweetObj = JSON.parse(xmlHttp.responseText);
-        console.log(tweetObj.toString())
-        console.log("Tweet: " + tweetObj["tweet"])
+        console.log(tweetObj.toString());
+        console.log("Tweet: " + tweetObj["tweet"]);
         $("#tweetBody").html(tweetObj["tweet"]);
     }
 
@@ -97,7 +97,7 @@ $(function () {
 
         // When the user clicks anywhere outside of the modal, close it
         $(window).click(function(event) {
-            if (event.target == $("#submitScore")[0]) {
+            if (event.target === $("#submitScore")[0]) {
                 $("#submitScore")[0].style.display = "none";
                 setUpGame();
             }
@@ -106,11 +106,11 @@ $(function () {
 
     // when game starts, should be at 0 points and 3 lives left
     function setUpGame() {
-        tweetObj = {}
-        points = 0
-        setScore()
-        numberLives = 3
-        setLives()
+        tweetObj = {};
+        points = 0;
+        setScore();
+        numberLives = 3;
+        setLives();
     }
 
     function setScore() {
@@ -119,13 +119,13 @@ $(function () {
     }
 
     function setLives() {
-        if (numberLives == 3) {
+        if (numberLives === 3) {
             $("#hitPoints").attr("src", "../static/heart3.png");
-        } else if (numberLives == 2) {
+        } else if (numberLives === 2) {
             $("#hitPoints").attr("src", "../static/heart2.png");
-        } else if (numberLives == 1) {
+        } else if (numberLives === 1) {
             $("#hitPoints").attr("src", "../static/heart1.png");
-        } else if (numberLives == 0) {
+        } else if (numberLives === 0) {
             $("#hitPoints").attr("src", "../static/heart0.png");
         }
     }
@@ -134,12 +134,9 @@ $(function () {
     }
 
     function sendScoreToLeaderboard(name) {
-
-        var xmlHttp = new XMLHttpRequest();
-
-        var secondsSinceEpoch = (Date.now() / 1000).toFixed(0)
-
-        var params = "pub_date=" + secondsSinceEpoch + "&username=" + name + "&score=" + points;
+        const xmlHttp = new XMLHttpRequest();
+        const secondsSinceEpoch = (Date.now() / 1000).toFixed(0);
+        const params = "pub_date=" + secondsSinceEpoch + "&username=" + name + "&score=" + points;
         xmlHttp.open("POST", "https://alternativetweets.us/leaderboard?" + params, false); // false for synchronous request
         xmlHttp.send();
     }
