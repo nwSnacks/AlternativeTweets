@@ -66,7 +66,7 @@ $(function () {
 
     function updateTweet() {
         var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("GET", "http://alternativetweets.us/question", false); // false for synchronous request
+        xmlHttp.open("GET", "https://alternativetweets.us/question", false); // false for synchronous request
         xmlHttp.send();
         console.log("sent request")
         tweetObj = JSON.parse(xmlHttp.responseText);
@@ -140,7 +140,7 @@ $(function () {
         var secondsSinceEpoch = (Date.now() / 1000).toFixed(0)
 
         var params = "pub_date=" + secondsSinceEpoch + "&username=" + name + "&score=" + points;
-        xmlHttp.open("POST", "http://127.0.0.1:5000/leaderboard?" + params, false); // false for synchronous request
+        xmlHttp.open("POST", "https://alternativetweets.us/leaderboard?" + params, false); // false for synchronous request
         xmlHttp.send();
     }
 });
