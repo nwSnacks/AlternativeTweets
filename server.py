@@ -66,7 +66,7 @@ def init_tweets():
             for tweet in raw_tweets:
                 if not (tweet["is_retweet"] or tweet["text"][0] == "@" or "Thank you" in tweet["text"] or "@realDonaldTrump" in tweet["text"]):
                     raw_tweets_text.write(
-                        html.unescape(tweet["text"].encode("ascii", "ignore")).replace(".@", " @") + " ")
+                        html.unescape(tweet["text"]).replace(".@", " @") + " ")
                     filtered_tweets.append(tweet)
     raw_tweets_text.close()
 
@@ -115,13 +115,13 @@ def random_real_tweet():
             raw_tweets = json.load(raw_tweets_json)
             for tweet in raw_tweets:
                 if not (tweet["is_retweet"] or tweet["text"][0] == "@" or "Thank you" in tweet["text"] or "@realDonaldTrump" in tweet["text"]):
-                    raw_tweets_text.write(html.unescape(tweet["text"].encode("ascii", "ignore")).replace(".@", " @") + " ")
+                    raw_tweets_text.write(html.unescape(tweet["text"]).replace(".@", " @") + " ")
                     filtered_tweets.append(tweet)
     raw_tweets_text.close()
 
     random_tweet_index = random.randint(0, len(filtered_tweets) - 1)
     data = {}
-    data["tweet"] = html.unescape(filtered_tweets[random_tweet_index]["text"].encode("ascii", "ignore")).replace('\"', "")
+    data["tweet"] = html.unescape(filtered_tweets[random_tweet_index]["text"]).replace('\"', "")
     data["true_or_false"] = "true"
     json_data = json.dumps(data)
     return json_data
