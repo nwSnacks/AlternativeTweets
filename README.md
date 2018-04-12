@@ -1,6 +1,6 @@
 # AlternativeTweets
 Did Trump tweet it or not? You have three lives; try to guess as many as you can!
-Check [our website](alttweets.us) to see it in action.
+Check [our website](https://alttweets.us) to see it in action.
 
 # Installation
 
