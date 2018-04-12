@@ -24,7 +24,7 @@ app.config.update(dict(
 def init():
     print("Initializing...")
     init_db()
-    #init_tweets()
+    init_tweets()
     init_fake_tweets()
     print("Initialized the server")
 
@@ -32,7 +32,7 @@ def init():
 def init_db():
     print("Initializing database")
     db = connect_db()
-    with app.open_resource('schema.sql', mode='r') as schema:
+    with app.open_resource(cwd + '/schema.sql', mode='r') as schema:
         db.cursor().executescript(schema.read())
     db.commit()
     db.close()
@@ -59,7 +59,7 @@ def close_db(error):
 #TODO make this work again
 def init_tweets():
     print("Initializing tweets")
-    raw_tweets_text = open("raw_tweets_text.txt", "w")
+    raw_tweets_text = open(cwd + "/raw_tweets_text.txt", "w")
     for i in range(2011, 2018):
         with open(cwd + "/static/condensed_%d.json" % i) as raw_tweets_json:
             raw_tweets = json.load(raw_tweets_json)
@@ -115,7 +115,7 @@ def random_real_tweet():
             raw_tweets = json.load(raw_tweets_json)
             for tweet in raw_tweets:
                 if not (tweet["is_retweet"] or tweet["text"][0] == "@" or "Thank you" in tweet["text"] or "@realDonaldTrump" in tweet["text"]):
-                    #raw_tweets_text.write(html.unescape(tweet["text"].encode("ascii", "ignore")).replace(".@", " @") + " ")
+                    raw_tweets_text.write(html.unescape(tweet["text"].encode("ascii", "ignore")).replace(".@", " @") + " ")
                     filtered_tweets.append(tweet)
     raw_tweets_text.close()
 
