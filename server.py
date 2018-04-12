@@ -8,6 +8,7 @@ import markov
 import html
 
 app = Flask(__name__)
+app.config['PROPAGATE_EXCEPTIONS'] = True # this may not be necessary
 
 #declare global objects
 filtered_tweets = []
